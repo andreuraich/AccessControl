@@ -1,0 +1,28 @@
+<app-navbar></app-navbar>
+<app-header></app-header>
+<ion-content>
+    <div class="ion-padding">
+        <div>
+            <ion-list>
+                <ion-item>
+                    <ion-label>Access Point</ion-label>
+                    <ion-select interface="popover" (ionChange)="changedAccessPoint($event)"
+                                [disabled]="accessPointDisabled">
+                        <ion-select-option value="" selected="selected">Select an Access Point</ion-select-option>
+                        <ion-select-option value="ap1">Access Point 1</ion-select-option>
+                        <ion-select-option value="ap2">Access Point 2</ion-select-option>
+                        <ion-select-option value="ap3">Access Point 3</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-list>
+        </div>
+        <div class="main-button-container">
+            <div class="main-button-wrapper">
+                <ion-button expand="block" color="success" class="main-button">ENTER</ion-button>
+            </div>
+            <div class="main-button-wrapper">
+                <ion-button expand="block" color="danger" class="main-button">EXIT</ion-button>
+            </div>
+        </div>
+    </div>
+</ion-content>
