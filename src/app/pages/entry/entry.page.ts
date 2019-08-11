@@ -11,7 +11,7 @@ export class EntryPage {
 
     public signaturePadOptions = {
         minWidth: 2,
-        canvasWidth: 340,
+        canvasWidth: 450,
         canvasHeight: 200
 
     };
@@ -21,7 +21,7 @@ export class EntryPage {
     }
 
     canvasResize() {
-        let canvas = document.querySelector("canvas");
+        const canvas = document.querySelector("canvas");
         this
             .signaturePad
             .set("minWidth", 1);
@@ -44,10 +44,6 @@ export class EntryPage {
     //     this.canvasResize();
     // }
 
-
-    drawCancel() {
-        console.log("canceled");
-    }
 
     drawComplete() {
 
