@@ -11,6 +11,7 @@
   margin: auto;
   width: 100%;
 }
+
 .inp .label {
   position: absolute;
   top: 16px;
@@ -21,6 +22,7 @@
   transform-origin: 0 0;
   transition: all 0.2s ease;
 }
+
 .inp .border {
   position: absolute;
   bottom: 0;
@@ -32,6 +34,7 @@
   transform-origin: 0 0;
   transition: all 0.15s ease;
 }
+
 .inp input {
   -webkit-appearance: none;
   width: 100%;
@@ -47,33 +50,63 @@
   color: #223254;
   transition: all 0.15s ease;
 }
+
 .inp input:hover {
-  background: rgba(34,50,84,0.03);
+  background: rgba(34, 50, 84, 0.03);
 }
+
 .inp input:not(:placeholder-shown) + span {
   color: #5a667f;
   transform: translateY(-26px) scale(0.75);
 }
+
 .inp input:focus {
   background: none;
   outline: none;
 }
+
 .inp input:focus + span {
   color: #07f;
   transform: translateY(-26px) scale(0.75);
 }
+
 .inp input:focus + span + .border {
   transform: scaleX(1);
 }
+
 //-------!Input-------//
 
-.ion-select, ion-label, span, ion-button{
+.ion-select, ion-label, span, ion-button, p {
   font-size: 20px;
 }
-.submit-button{
+
+.submit-button {
   height: 50px;
   --border-radius: 50px;
 }
-.row-input-wrapper{
+
+.row-input-wrapper {
   margin: 40px 0;
+}
+
+.form-text-input {
+  border-bottom: 1px solid var(--ion-color-light-shade);
+}
+
+.signature-pad {
+  border: 1px solid var(--ion-color-light-shade);
+}
+
+.checkbox-align-fix {
+  margin-top: 7px;
+}
+
+signature-pad canvas {
+  border: dashed 1px #cccccc;
+  width: 450px;
+  height: 200px;
+}
+
+.trash-icon {
+  font-size: 40px;
 }

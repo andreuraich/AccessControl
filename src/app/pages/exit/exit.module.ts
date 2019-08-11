@@ -5,15 +5,15 @@ import {Routes, RouterModule} from "@angular/router";
 
 import {IonicModule} from "@ionic/angular";
 
-import {EntryPage} from "./entry.page";
+import {ExitPage} from "./exit.page";
+import {SignaturePadModule} from "angular2-signaturepad";
 import {NavbarComponent} from "../../components/shared/navbar/navbar.component";
 import {HeaderComponent} from "../../components/shared/header/header.component";
-import {SignaturePadModule} from "angular2-signaturepad";
 
 const routes: Routes = [
     {
         path: "",
-        component: EntryPage
+        component: ExitPage
     }
 ];
 
@@ -25,7 +25,7 @@ const routes: Routes = [
         SignaturePadModule,
         RouterModule.forChild(routes)
     ],
-    declarations: [EntryPage, NavbarComponent, HeaderComponent]
+    declarations: [ExitPage, NavbarComponent, HeaderComponent]
 })
-export class EntryPageModule {
+export class ExitPageModule {
 }
