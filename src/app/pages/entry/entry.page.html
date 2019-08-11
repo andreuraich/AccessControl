@@ -1,0 +1,46 @@
+<app-navbar></app-navbar>
+<app-header></app-header>
+<ion-content>
+    <div class="ion-padding">
+        <div class="container">
+            <form>
+                <!-- Input with placeholder -->
+                <ion-input class="form-text-input" placeholder="ID" autocapitalize></ion-input>
+                <ion-input class="form-text-input" placeholder="NAME" autocapitalize></ion-input>
+                <ion-input class="form-text-input" placeholder="LAST NAME" autocapitalize></ion-input>
+                <ion-input class="form-text-input" placeholder="COMPANY NAME" autocapitalize></ion-input>
+                <ion-list>
+                    <ion-item>
+                        <ion-label>Access Point</ion-label>
+                        <ion-select interface="popover">
+                            <ion-select-option value="" selected="selected">Select a visit reason</ion-select-option>
+                            <ion-select-option value="ap1">Commercial</ion-select-option>
+                            <ion-select-option value="ap2">Management meeting</ion-select-option>
+                            <ion-select-option value="ap2">Financial meeting</ion-select-option>
+                            <ion-select-option value="ap3">Maintenance</ion-select-option>
+                            <ion-select-option value="ap3">Other</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-list>
+                <div class="row">
+                    <ion-checkbox color="primary" slot="start"></ion-checkbox>
+                    <ion-label>I accept the internal operating rules</ion-label>
+                </div>
+                <signature-pad [options]="signaturePadOptions" id="signatureCanvas"></signature-pad>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-4>
+                            <button ion-button full color="danger" (click)="drawCancel()">Cancel</button>
+                        </ion-col>
+                        <ion-col col-4>
+                            <button ion-button full color="light" (click)="drawClear()">Clear</button>
+                        </ion-col>
+                        <ion-col col-4>
+                            <button ion-button full color="secondary" (click)="drawComplete()">Done</button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </form>
+        </div>
+    </div>
+</ion-content>
