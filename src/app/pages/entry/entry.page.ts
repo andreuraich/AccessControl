@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {SignaturePad} from "angular2-signaturepad/signature-pad";
+import {AlertController} from "@ionic/angular";
 
 @Component({
     selector: "app-entry",
@@ -17,7 +18,30 @@ export class EntryPage {
     };
     public signatureImage: string;
 
-    constructor() {
+    constructor(private alertController: AlertController) {
+    }
+
+    async presentAlertMultipleButtons(event) {
+        console.log(event);
+        const alert = await this.alertController.create({
+            header: "COMPANY NAME internal operating rules",
+            message: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
+            buttons: [{
+                text: "Decline",
+                role: "cancel",
+                handler: () => {
+                    event.target.checked = false;
+                }
+            },
+                {
+                    text: "Accept",
+                    handler: () => {
+                        event.target.checked = true;
+                    }
+                }]
+        });
+
+        await alert.present();
     }
 
     canvasResize() {
