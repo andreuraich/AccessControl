@@ -1,0 +1,54 @@
+<app-navbar></app-navbar>
+<app-header></app-header>
+<ion-content>
+    <div class="ion-padding">
+        <div class="container">
+            <form>
+                <!-- Input with placeholder -->
+                <div class="row row-input-wrapper">
+                    <label for="id" class="inp">
+                        <input class="form-text-input" id="id" name="id" placeholder="&nbsp;" required/>
+                        <span class="label form-text-label">ID</span>
+                        <span class="border"></span>
+                    </label>
+                </div>
+                <div class="row row-input-wrapper">
+                    <div class="exit-declaration">
+                        <p class="exit-declaration-header-text">By signing this, I declare that:</p>
+                        <p class="exit-declaration-text">&#8226; Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. </p>
+                        <p class="exit-declaration-text">&#8226; Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                        <p class="exit-declaration-text">&#8226; Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                            exercitation ullamco. </p>
+                    </div>
+
+                </div>
+                <div class="row row-input-wrapper">
+                    <div class="col-4">
+                        <span>SIGNATURE:</span>
+                    </div>
+                    <div class="col-8">
+                        <div class="row">
+                            <signature-pad [options]="signaturePadOptions" id="signatureCanvas"
+                                           class="signature-pad"></signature-pad>
+                        </div>
+                        <div class="row">
+                            <div class="col-1 offset-10">
+                                <button class="text-right mt-2 bg-transparent" (click)="drawClear()">
+                                    <ion-icon name="trash" class="trash-icon"></ion-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-input-wrapper">
+                    <ion-button expand="block" color="danger" class="main-button w-100 submit-button">EXIT
+                    </ion-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ion-content>

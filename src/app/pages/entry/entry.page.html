@@ -1,0 +1,81 @@
+<app-navbar></app-navbar>
+<app-header></app-header>
+<ion-content>
+    <div class="ion-padding">
+        <div class="container">
+            <form>
+                <!-- Input with placeholder -->
+                <div class="row row-input-wrapper">
+                    <label for="id" class="inp">
+                        <input class="form-text-input" id="id" name="id" placeholder="&nbsp;" required/>
+                        <span class="label form-text-label">ID</span>
+                        <span class="border"></span>
+                    </label>
+                </div>
+                <div class="row row-input-wrapper">
+                    <label for="name" class="inp">
+                        <input class="form-text-input" id="name" name="name" placeholder="&nbsp;" required/>
+                        <span class="label">NAME</span>
+                        <span class="border"></span>
+                    </label>
+                </div>
+                <div class="row row-input-wrapper">
+                    <label for="last_name" class="inp">
+                        <input class="form-text-input" id="last_name" name="last_name" placeholder="&nbsp;" required/>
+                        <span class="label">LAST NAME</span>
+                        <span class="border"></span>
+                    </label>
+                </div>
+                <div class="row row-input-wrapper">
+                    <label for="company" class="inp">
+                        <input class="form-text-input" type="text" id="company" name="company" placeholder="&nbsp;"
+                               required/>
+                        <span class="label">COMPANY NAME</span>
+                        <span class="border"></span>
+                    </label>
+                </div>
+                <div class="row row-input-wrapper">
+                    <ion-list class="w-100">
+                        <ion-item class="ion-select">
+                            <ion-label>VISIT REASON</ion-label>
+                            <ion-select interface="popover">
+                                <ion-select-option value="" selected="selected">Select a visit reason
+                                </ion-select-option>
+                                <ion-select-option value="ap1">Commercial</ion-select-option>
+                                <ion-select-option value="ap2">Management meeting</ion-select-option>
+                                <ion-select-option value="ap2">Financial meeting</ion-select-option>
+                                <ion-select-option value="ap3">Maintenance</ion-select-option>
+                                <ion-select-option value="ap3">Other</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-list>
+                </div>
+                <div class="row row-input-wrapper">
+                    <ion-checkbox color="primary" slot="start" class="mr-3 checkbox-align-fix" (click)="presentAlertMultipleButtons($event);"></ion-checkbox>
+                    <ion-label>I accept the internal operating rules</ion-label>
+                </div>
+                <div class="row row-input-wrapper">
+                    <div class="col-4">
+                        <span>SIGNATURE:</span>
+                    </div>
+                    <div class="col-8">
+                        <div class="row">
+                            <signature-pad [options]="signaturePadOptions" id="signatureCanvas"
+                                           class="signature-pad"></signature-pad>
+                        </div>
+                        <div class="row">
+                            <div class="col-1 offset-10">
+                                <button class="text-right mt-2 bg-transparent" (click)="drawClear()">
+                                    <ion-icon name="trash" class="trash-icon"></ion-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-input-wrapper">
+                    <ion-button expand="block" color="success" class="main-button w-100 submit-button">ENTER</ion-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</ion-content>

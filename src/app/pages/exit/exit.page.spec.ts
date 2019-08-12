@@ -1,22 +1,22 @@
 import {CUSTOM_ELEMENTS_SCHEMA} from "@angular/core";
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 
-import {HeaderComponent} from "./header.component";
+import {ExitPage} from "./exit.page";
 
-describe("HeaderComponent", () => {
-    let component: HeaderComponent;
-    let fixture: ComponentFixture<HeaderComponent>;
+describe("ExitPage", () => {
+    let component: ExitPage;
+    let fixture: ComponentFixture<ExitPage>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [HeaderComponent],
+            declarations: [ExitPage],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(HeaderComponent);
+        fixture = TestBed.createComponent(ExitPage);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

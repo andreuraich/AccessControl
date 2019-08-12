@@ -4,6 +4,109 @@
 // styles are for the entire app and not just one component. Additionally, this 
 // file can hold Sass mixins, functions, and placeholder classes to be imported 
 // and used throughout the application.
-.main-container{
-  margin-top: 100px;
+
+//-------Input-------//
+.inp {
+  position: relative;
+  margin: auto;
+  width: 100%;
+}
+
+.inp .label {
+  position: absolute;
+  top: 16px;
+  left: 0;
+  font-size: 20px;
+  color: #9098a9;
+  font-weight: 500;
+  transform-origin: 0 0;
+  transition: all 0.2s ease;
+}
+
+.inp .border {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: #07f;
+  transform: scaleX(0);
+  transform-origin: 0 0;
+  transition: all 0.15s ease;
+}
+
+.inp input {
+  -webkit-appearance: none;
+  width: 100%;
+  border: 0;
+  font-family: inherit;
+  padding: 12px 0;
+  height: 48px;
+  font-size: 20px;
+  font-weight: 500;
+  border-bottom: 2px solid #c8ccd4;
+  background: none;
+  border-radius: 0;
+  color: #223254;
+  transition: all 0.15s ease;
+}
+
+.inp input:hover {
+  background: rgba(34, 50, 84, 0.03);
+}
+
+.inp input:not(:placeholder-shown) + span {
+  color: #5a667f;
+  transform: translateY(-26px) scale(0.75);
+}
+
+.inp input:focus {
+  background: none;
+  outline: none;
+}
+
+.inp input:focus + span {
+  color: #07f;
+  transform: translateY(-26px) scale(0.75);
+}
+
+.inp input:focus + span + .border {
+  transform: scaleX(1);
+}
+
+//-------!Input-------//
+
+.ion-select, ion-label, span, ion-button, p {
+  font-size: 20px;
+}
+
+.submit-button {
+  height: 50px;
+  --border-radius: 50px;
+}
+
+.row-input-wrapper {
+  margin: 40px 0;
+}
+
+.form-text-input {
+  border-bottom: 1px solid var(--ion-color-light-shade);
+}
+
+.signature-pad {
+  border: 1px solid var(--ion-color-light-shade);
+}
+
+.checkbox-align-fix {
+  margin-top: 5.4px;
+}
+
+signature-pad canvas {
+  border: dashed 1px #cccccc;
+  width: 450px;
+  height: 200px;
+}
+
+.trash-icon {
+  font-size: 40px;
 }

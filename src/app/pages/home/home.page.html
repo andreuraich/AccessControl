@@ -2,9 +2,9 @@
 <app-header></app-header>
 <ion-content>
     <div class="ion-padding">
-        <div>
+        <div class="container">
             <ion-list>
-                <ion-item>
+                <ion-item class="ion-select">
                     <ion-label>Access Point</ion-label>
                     <ion-select interface="popover" (ionChange)="changedAccessPoint($event)"
                                 [disabled]="accessPointDisabled">
