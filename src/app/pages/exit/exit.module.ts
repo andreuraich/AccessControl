@@ -7,8 +7,7 @@ import {IonicModule} from "@ionic/angular";
 
 import {ExitPage} from "./exit.page";
 import {SignaturePadModule} from "angular2-signaturepad";
-import {NavbarComponent} from "../../components/shared/navbar/navbar.component";
-import {HeaderComponent} from "../../components/shared/header/header.component";
+import {ComponentsModule} from "../../components/shared/components.module";
 
 const routes: Routes = [
     {
@@ -23,9 +22,10 @@ const routes: Routes = [
         FormsModule,
         IonicModule,
         SignaturePadModule,
+        ComponentsModule,
         RouterModule.forChild(routes)
     ],
-    declarations: [ExitPage, NavbarComponent, HeaderComponent]
+    declarations: [ExitPage]
 })
 export class ExitPageModule {
 }

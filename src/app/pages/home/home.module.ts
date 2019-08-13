@@ -5,14 +5,14 @@ import {FormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
 
 import {HomePage} from "./home.page";
-import {NavbarComponent} from "../../components/shared/navbar/navbar.component";
-import {HeaderComponent} from "../../components/shared/header/header.component";
+import {ComponentsModule} from "../../components/shared/components.module";
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
+        ComponentsModule,
         RouterModule.forChild([
             {
                 path: "",
@@ -20,7 +20,7 @@ import {HeaderComponent} from "../../components/shared/header/header.component";
             }
         ])
     ],
-    declarations: [HomePage, NavbarComponent, HeaderComponent]
+    declarations: [HomePage]
 })
 export class HomePageModule {
 }
