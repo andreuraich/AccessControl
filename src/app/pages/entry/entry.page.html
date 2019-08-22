@@ -3,42 +3,67 @@
 <ion-content>
     <div class="ion-padding">
         <div class="container">
-            <form>
+            <form [formGroup]="entryForm" (ngSubmit)="entryFormSubmitted()" novalidate>
                 <!-- Input with placeholder -->
                 <div class="row row-input-wrapper">
                     <label for="id" class="inp">
-                        <input class="form-text-input" id="id" name="id" placeholder="&nbsp;" required/>
+                        <input class="form-text-input" id="id" name="id" formControlName="id" placeholder="&nbsp;"
+                               required/>
                         <span class="label form-text-label">ID</span>
                         <span class="border"></span>
                     </label>
+                    <div *ngIf="entryForm.controls['id'].errors?.required && entryForm.controls['id'].dirty"
+                         class="form-control-feedback">
+                        <span class="text-danger">This field is requiered</span>
+                    </div>
+                    <div *ngIf="entryForm.controls['id'].errors?.minlength" class="form-control-feedback">
+                        <span class="text-danger">ID must be longer than {{ entryForm.controls['id'].errors?.minlength.requiredLength }}
+                            characters</span>
+                    </div>
                 </div>
                 <div class="row row-input-wrapper">
                     <label for="name" class="inp">
-                        <input class="form-text-input" id="name" name="name" placeholder="&nbsp;" required/>
+                        <input class="form-text-input" id="name" name="name" formControlName="name" placeholder="&nbsp;"
+                               required/>
                         <span class="label">NAME</span>
                         <span class="border"></span>
                     </label>
+                    <div *ngIf="entryForm.controls['name'].errors?.required && entryForm.controls['name'].dirty"
+                         class="form-control-feedback">
+                        <span class="text-danger">This field is requiered</span>
+                    </div>
                 </div>
                 <div class="row row-input-wrapper">
-                    <label for="last_name" class="inp">
-                        <input class="form-text-input" id="last_name" name="last_name" placeholder="&nbsp;" required/>
+                    <label for="lastName" class="inp">
+                        <input class="form-text-input" id="lastName" name="lastName" formControlName="lastName"
+                               placeholder="&nbsp;" required/>
                         <span class="label">LAST NAME</span>
                         <span class="border"></span>
                     </label>
+                    <div *ngIf="entryForm.controls['lastName'].errors?.required && entryForm.controls['lastName'].dirty"
+                         class="form-control-feedback">
+                        <span class="text-danger">This field is requiered</span>
+                    </div>
                 </div>
                 <div class="row row-input-wrapper">
                     <label for="company" class="inp">
-                        <input class="form-text-input" type="text" id="company" name="company" placeholder="&nbsp;"
+                        <input class="form-text-input" type="text" id="company" name="company" formControlName="company"
+                               placeholder="&nbsp;"
                                required/>
                         <span class="label">COMPANY NAME</span>
                         <span class="border"></span>
                     </label>
+                    <div *ngIf="entryForm.controls['company'].errors?.required && entryForm.controls['company'].dirty"
+                         class="form-control-feedback">
+                        <span class="text-danger">This field is requiered</span>
+                    </div>
                 </div>
                 <div class="row row-input-wrapper">
                     <ion-list class="w-100">
                         <ion-item class="ion-select">
                             <ion-label>VISIT REASON</ion-label>
-                            <ion-select interface="popover">
+                            <ion-select interface="popover" id="visitReason" name="visitReason"
+                                        formControlName="visitReason">
                                 <ion-select-option value="" selected="selected">Select a visit reason
                                 </ion-select-option>
                                 <ion-select-option value="ap1">Commercial</ion-select-option>
@@ -50,18 +75,27 @@
                         </ion-item>
                     </ion-list>
                 </div>
-                <div class="row row-input-wrapper">
+                <div class="row row-input-wrapper mb-1">
                     <ion-checkbox color="primary" slot="start" class="mr-3 checkbox-align-fix"
-                                  (click)="presentAlertMultipleButtons($event);"></ion-checkbox>
+                                  (click)="presentAlertMultipleButtons($event);" id="internalOps" name="internalOps"
+                                  formControlName="internalOps"
+                                  required></ion-checkbox>
                     <ion-label>I accept the internal operating rules</ion-label>
+                </div>
+                <div *ngIf="entryForm.controls['internalOps'].errors?.required && entryForm.controls['internalOps'].dirty"
+                     class="form-control-feedback">
+                    <span class="text-danger">This field is requiered</span>
                 </div>
                 <div class="row row-input-wrapper">
                     <div class="col-4">
                         <span>SIGNATURE:</span>
+                        <div>
+                            <span class="text-danger">This field is requiered</span>
+                        </div>
                     </div>
                     <div class="col-8">
                         <div class="row">
-                            <signature-pad [options]="signaturePadOptions" id="signatureCanvas"
+                            <signature-pad [options]="signaturePadOptions" id="signature"
                                            class="signature-pad"></signature-pad>
                         </div>
                         <div class="row">
@@ -73,8 +107,10 @@
                         </div>
                     </div>
                 </div>
+                {{this.entryForm.valid}}
                 <div class="row row-input-wrapper">
-                    <ion-button expand="block" color="success" class="main-button w-100 submit-button">ENTER
+                    <ion-button type="submit" expand="block" color="success" class="main-button w-100 submit-button">
+                        ENTER
                     </ion-button>
                 </div>
             </form>

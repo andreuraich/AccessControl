@@ -1,6 +1,8 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {SignaturePad} from "angular2-signaturepad/signature-pad";
 import {AlertController} from "@ionic/angular";
+import {NgForm, FormGroup, FormControl, Validators} from "@angular/forms";
+import {Access} from "../../models/access.model";
 
 @Component({
     selector: "app-entry",
@@ -18,7 +20,21 @@ export class EntryPage {
     };
     public signatureImage: string;
 
+    entryForm: FormGroup;
+    entryAccess: Access;
+
     constructor(private alertController: AlertController) {
+
+        this.entryAccess = new Access();
+
+        this.entryForm = new FormGroup({
+            "id": new FormControl("", [Validators.required, Validators.minLength(3)]),
+            "name": new FormControl("", Validators.required),
+            "lastName": new FormControl("", Validators.required),
+            "company": new FormControl("", Validators.required),
+            "visitReason": new FormControl(),
+            "internalOps": new FormControl("false", Validators.requiredTrue)
+        });
     }
 
     async presentAlertMultipleButtons(event) {
@@ -83,5 +99,12 @@ export class EntryPage {
         this
             .signaturePad
             .clear();
+    }
+
+    private entryFormSubmitted(): void {
+        console.log("Form submitted!");
+        if (this.entryForm.valid && !this.signaturePad.isEmpty()){
+            console.log("Valid form");
+        }
     }
 }
