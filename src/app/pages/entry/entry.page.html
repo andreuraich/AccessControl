@@ -66,11 +66,11 @@
                                         formControlName="visitReason">
                                 <ion-select-option value="" selected="selected">Select a visit reason
                                 </ion-select-option>
-                                <ion-select-option value="ap1">Commercial</ion-select-option>
-                                <ion-select-option value="ap2">Management meeting</ion-select-option>
-                                <ion-select-option value="ap2">Financial meeting</ion-select-option>
-                                <ion-select-option value="ap3">Maintenance</ion-select-option>
-                                <ion-select-option value="ap3">Other</ion-select-option>
+                                <ion-select-option value="commercial">Commercial</ion-select-option>
+                                <ion-select-option value="management">Management meeting</ion-select-option>
+                                <ion-select-option value="financial">Financial meeting</ion-select-option>
+                                <ion-select-option value="maintenance">Maintenance</ion-select-option>
+                                <ion-select-option value="other">Other</ion-select-option>
                             </ion-select>
                         </ion-item>
                     </ion-list>
@@ -89,7 +89,7 @@
                 <div class="row row-input-wrapper">
                     <div class="col-4">
                         <span>SIGNATURE:</span>
-                        <div>
+                        <div *ngIf="this.signatureShowError">
                             <span class="text-danger">This field is requiered</span>
                         </div>
                     </div>
@@ -107,7 +107,6 @@
                         </div>
                     </div>
                 </div>
-                {{this.entryForm.valid}}
                 <div class="row row-input-wrapper">
                     <ion-button type="submit" expand="block" color="success" class="main-button w-100 submit-button">
                         ENTER

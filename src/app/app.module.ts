@@ -10,11 +10,12 @@ import {StatusBar} from "@ionic-native/status-bar/ngx";
 import {AppComponent} from "./app.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {SignaturePadModule} from "angular2-signaturepad";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
     declarations: [AppComponent],
     entryComponents: [],
-    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, ReactiveFormsModule, SignaturePadModule],
+    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, ReactiveFormsModule, HttpClientModule, SignaturePadModule],
     providers: [
         StatusBar,
         SplashScreen,

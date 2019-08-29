@@ -3,6 +3,9 @@ import {SignaturePad} from "angular2-signaturepad/signature-pad";
 import {AlertController} from "@ionic/angular";
 import {NgForm, FormGroup, FormControl, Validators} from "@angular/forms";
 import {Access} from "../../models/access.model";
+import {AccessRegistrationService} from "../../services/access-registration.service";
+import {pipe} from "rxjs";
+import {first} from "rxjs/operators";
 
 @Component({
     selector: "app-entry",
@@ -18,15 +21,10 @@ export class EntryPage {
         canvasHeight: 200
 
     };
-    public signatureImage: string;
-
+    private signatureShowError: boolean;
     entryForm: FormGroup;
-    entryAccess: Access;
 
-    constructor(private alertController: AlertController) {
-
-        this.entryAccess = new Access();
-
+    constructor(private alertController: AlertController, private accessRegistrationService: AccessRegistrationService) {
         this.entryForm = new FormGroup({
             "id": new FormControl("", [Validators.required, Validators.minLength(3)]),
             "name": new FormControl("", Validators.required),
@@ -35,6 +33,8 @@ export class EntryPage {
             "visitReason": new FormControl(),
             "internalOps": new FormControl("false", Validators.requiredTrue)
         });
+
+        this.signatureShowError = false;
     }
 
     async presentAlertMultipleButtons(event) {
@@ -75,36 +75,35 @@ export class EntryPage {
             .set("canvasHeight", canvas.offsetHeight);
     }
 
-
-    // ngAfterViewInit() {
-    //     console.log("Reset Model Screen");
-    //     this
-    //         .signaturePad
-    //         .clear();
-    //     this.canvasResize();
-    // }
-
-
-    drawComplete() {
-
-        this.signatureImage = this
-            .signaturePad
-            .toDataURL();
-
-        console.log("completed");
-        console.log(this.signatureImage);
-    }
-
     drawClear() {
         this
             .signaturePad
             .clear();
+        this.signatureShowError = true;
     }
 
     private entryFormSubmitted(): void {
-        console.log("Form submitted!");
-        if (this.entryForm.valid && !this.signaturePad.isEmpty()){
-            console.log("Valid form");
+        if (this.signaturePad.isEmpty()) {
+            this.signatureShowError = true;
+            return;
+        }
+        this.signatureShowError = false;
+
+        if (this.entryForm.valid) {
+            console.log(this.entryForm);
+            let entryAccess = new Access();
+            entryAccess.setId = this.entryForm.controls.id.value;
+            entryAccess.setName = this.entryForm.controls.name.value;
+            entryAccess.setLastName = this.entryForm.controls.lastName.value;
+            entryAccess.setcompany = this.entryForm.controls.company.value;
+            entryAccess.setVisitReason = this.entryForm.controls.visitReason.value;
+            entryAccess.setEntrySignature = this.signaturePad.toDataURL();
+            entryAccess.setActualEntryDate();
+
+            this.accessRegistrationService.registerNewAccess(entryAccess)
+                .subscribe(resp => {
+                    console.log(resp);
+                });
         }
     }
 }
