@@ -6,6 +6,7 @@
 // Base URL of the Back-End server
 export const BASE_URL = "https://XYZ.com";
 
+export const CLOSE_APP_MESSAGE = "Success";
 export const SUCCESS = "Success";
 export const ERROR = "Error";
 export const SUCCESSFUL_ENTRY = "Correct entry, you can now enter.";
