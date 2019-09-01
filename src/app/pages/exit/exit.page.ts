@@ -1,10 +1,12 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, ViewChild} from "@angular/core";
 import {SignaturePad} from "angular2-signaturepad/signature-pad";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AccessRegistrationService} from "../../services/access-registration.service";
 import {Access} from "../../models/access.model";
 import {ToastController} from "@ionic/angular";
-import {ANOTHER_ERROR, ERROR, NOT_FOUND_EXIT, SUCCESS, SUCCESSFUL_ENTRY} from "../../globals";
+import {ANOTHER_ERROR, ERROR, NETWORK_ERROR, NOT_FOUND_EXIT, SUCCESS, SUCCESSFUL_EXIT, TOAST_TIME_SLEEP} from "../../globals";
+import {Router} from "@angular/router";
+import {delay} from "rxjs/operators";
 
 @Component({
     selector: "app-exit",
@@ -24,7 +26,7 @@ export class ExitPage {
     private signatureShowError: boolean;
     exitForm: FormGroup;
 
-    constructor(private accessRegistrationService: AccessRegistrationService, private toastController: ToastController) {
+    constructor(private accessRegistrationService: AccessRegistrationService, private toastController: ToastController, private router: Router) {
         this.exitForm = new FormGroup({
             "id": new FormControl("", [Validators.required, Validators.minLength(3)])
         });
@@ -53,12 +55,12 @@ export class ExitPage {
             .clear();
     }
 
-    async presentToast(toastHeader: string, toastMessage: string) {
+    async presentToast(toastHeader: string, toastMessage: string): Promise<void> {
         const toast = await this.toastController.create({
             header: toastHeader,
             message: toastMessage,
             position: "middle",
-            duration: 2000
+            duration: TOAST_TIME_SLEEP
         });
         await toast.present();
     }
@@ -77,14 +79,19 @@ export class ExitPage {
             exitAccess.setActualExitDate();
             this.accessRegistrationService.registerNewExit(exitAccess)
                 .subscribe(resp => {
-                    if (resp.response_code === 200) {
-                        this.presentToast(SUCCESS, SUCCESSFUL_ENTRY);
-                    } else if (resp.response_code === 404) {
-                        this.presentToast(ERROR, NOT_FOUND_EXIT);
-                    } else {
-                        this.presentToast(ERROR, ANOTHER_ERROR);
+                        if (resp.response_code && resp.response_code === 200) {
+                            this.presentToast(SUCCESS, SUCCESSFUL_EXIT);
+                            setTimeout(() => this.router.navigateByUrl("/"), TOAST_TIME_SLEEP);
+                        } else if (resp.response_code === 404) {
+                            this.presentToast(ERROR, NOT_FOUND_EXIT);
+                        } else {
+                            this.presentToast(ERROR, ANOTHER_ERROR);
+                        }
+                    },
+                    (error) => {
+                        this.presentToast(ERROR, NETWORK_ERROR);
                     }
-                });
+                );
         }
     }
 }

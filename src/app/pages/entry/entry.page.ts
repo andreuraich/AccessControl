@@ -1,11 +1,13 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, ViewChild} from "@angular/core";
 import {SignaturePad} from "angular2-signaturepad/signature-pad";
 import {AlertController} from "@ionic/angular";
 import {FormGroup, FormControl, Validators} from "@angular/forms";
 import {Access} from "../../models/access.model";
 import {AccessRegistrationService} from "../../services/access-registration.service";
 import {ToastController} from "@ionic/angular";
-import {ANOTHER_ERROR, ERROR, NOT_FOUND_EXIT, SUCCESS, SUCCESSFUL_ENTRY} from "../../globals";
+import {ANOTHER_ERROR, ERROR, NETWORK_ERROR, SUCCESS, SUCCESSFUL_ENTRY, TOAST_TIME_SLEEP} from "../../globals";
+import {Router} from "@angular/router";
+import {delay} from "rxjs/operators";
 
 
 @Component({
@@ -25,7 +27,7 @@ export class EntryPage {
     private signatureShowError: boolean;
     entryForm: FormGroup;
 
-    constructor(private alertController: AlertController, private accessRegistrationService: AccessRegistrationService, private toastController: ToastController) {
+    constructor(private alertController: AlertController, private accessRegistrationService: AccessRegistrationService, private toastController: ToastController, private router: Router) {
         this.entryForm = new FormGroup({
             "id": new FormControl("", [Validators.required, Validators.minLength(3)]),
             "name": new FormControl("", Validators.required),
@@ -39,7 +41,6 @@ export class EntryPage {
     }
 
     async presentAlertMultipleButtons(event) {
-        console.log(event);
         const alert = await this.alertController.create({
             header: "COMPANY NAME internal operating rules",
             message: "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>",
@@ -88,7 +89,7 @@ export class EntryPage {
             header: toastHeader,
             message: toastMessage,
             position: "middle",
-            duration: 2000
+            duration: TOAST_TIME_SLEEP
         });
         await toast.present();
     }
@@ -101,7 +102,6 @@ export class EntryPage {
         this.signatureShowError = false;
 
         if (this.entryForm.valid) {
-            console.log(this.entryForm);
             const entryAccess = new Access();
             entryAccess.setId = this.entryForm.controls.id.value;
             entryAccess.setName = this.entryForm.controls.name.value;
@@ -114,12 +114,17 @@ export class EntryPage {
             // this.accessRegistrationService.registerNewAccess(entryAccess);
             this.accessRegistrationService.registerNewAccess(entryAccess)
                 .subscribe(resp => {
-                    if (resp.response_code === 200) {
-                        this.presentToast(SUCCESS, SUCCESSFUL_ENTRY);
-                    } else {
-                        this.presentToast(ERROR, ANOTHER_ERROR);
+                        if (resp.response_code === 200) {
+                            this.presentToast(SUCCESS, SUCCESSFUL_ENTRY);
+                            setTimeout(() => this.router.navigateByUrl("/"), TOAST_TIME_SLEEP);
+                        } else {
+                            this.presentToast(ERROR, ANOTHER_ERROR);
+                        }
+                    },
+                    error => {
+                        this.presentToast(ERROR, NETWORK_ERROR);
                     }
-                });
+                );
         }
     }
 }
