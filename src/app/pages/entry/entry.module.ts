@@ -23,8 +23,8 @@ const routes: Routes = [
         IonicModule,
         SignaturePadModule,
         ComponentsModule,
-        RouterModule.forChild(routes),
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        RouterModule.forChild(routes)
     ],
     declarations: [EntryPage]
 })

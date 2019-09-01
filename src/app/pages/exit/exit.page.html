@@ -3,14 +3,23 @@
 <ion-content>
     <div class="ion-padding">
         <div class="container">
-            <form>
+            <form [formGroup]="exitForm" (ngSubmit)="exitFormSubmitted()" novalidate>
                 <!-- Input with placeholder -->
                 <div class="row row-input-wrapper">
                     <label for="id" class="inp">
-                        <input class="form-text-input" id="id" name="id" placeholder="&nbsp;" required/>
+                        <input class="form-text-input" id="id" name="id" formControlName="id" placeholder="&nbsp;"
+                               required/>
                         <span class="label form-text-label">ID</span>
                         <span class="border"></span>
                     </label>
+                    <div *ngIf="exitForm.controls['id'].errors?.required && exitForm.controls['id'].dirty"
+                         class="form-control-feedback">
+                        <span class="text-danger">This field is requiered</span>
+                    </div>
+                    <div *ngIf="exitForm.controls['id'].errors?.minlength" class="form-control-feedback">
+                        <span class="text-danger">ID must be longer than {{ exitForm.controls['id'].errors?.minlength.requiredLength }}
+                            characters</span>
+                    </div>
                 </div>
                 <div class="row row-input-wrapper">
                     <div class="exit-declaration">
@@ -32,6 +41,9 @@
                 <div class="row row-input-wrapper">
                     <div class="col-4">
                         <span>SIGNATURE:</span>
+                        <div *ngIf="this.signatureShowError">
+                            <span class="text-danger">This field is requiered</span>
+                        </div>
                     </div>
                     <div class="col-8">
                         <div class="row">
@@ -48,7 +60,8 @@
                     </div>
                 </div>
                 <div class="row row-input-wrapper">
-                    <ion-button expand="block" color="danger" class="main-button w-100 submit-button">EXIT
+                    <ion-button type="submit" expand="block" color="danger" class="main-button w-100 submit-button">
+                        EXIT
                     </ion-button>
                 </div>
             </form>

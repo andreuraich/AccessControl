@@ -12,6 +12,10 @@ export class AccessRegistrationService {
     }
 
     registerNewAccess(entryAccess: Access) {
-        return this.http.post(`${BASE_URL}/access.json`, JSON.stringify(entryAccess));
+        return this.http.post(`${BASE_URL}/entry`, JSON.stringify(entryAccess));
+    }
+
+    registerNewExit(exitAccess: Access) {
+        return this.http.put(`${BASE_URL}/exit`, JSON.stringify(exitAccess));
     }
 }

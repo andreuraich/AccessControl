@@ -1,11 +1,12 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {SignaturePad} from "angular2-signaturepad/signature-pad";
 import {AlertController} from "@ionic/angular";
-import {NgForm, FormGroup, FormControl, Validators} from "@angular/forms";
+import {FormGroup, FormControl, Validators} from "@angular/forms";
 import {Access} from "../../models/access.model";
 import {AccessRegistrationService} from "../../services/access-registration.service";
-import {pipe} from "rxjs";
-import {first} from "rxjs/operators";
+import {ToastController} from "@ionic/angular";
+import {ANOTHER_ERROR, ERROR, NOT_FOUND_EXIT, SUCCESS, SUCCESSFUL_ENTRY} from "../../globals";
+
 
 @Component({
     selector: "app-entry",
@@ -24,7 +25,7 @@ export class EntryPage {
     private signatureShowError: boolean;
     entryForm: FormGroup;
 
-    constructor(private alertController: AlertController, private accessRegistrationService: AccessRegistrationService) {
+    constructor(private alertController: AlertController, private accessRegistrationService: AccessRegistrationService, private toastController: ToastController) {
         this.entryForm = new FormGroup({
             "id": new FormControl("", [Validators.required, Validators.minLength(3)]),
             "name": new FormControl("", Validators.required),
@@ -60,20 +61,20 @@ export class EntryPage {
         await alert.present();
     }
 
-    canvasResize() {
-        const canvas = document.querySelector("canvas");
-        this
-            .signaturePad
-            .set("minWidth", 1);
-        console.log(canvas.offsetWidth);
-        this
-            .signaturePad
-            .set("canvasWidth", canvas.offsetWidth);
-
-        this
-            .signaturePad
-            .set("canvasHeight", canvas.offsetHeight);
-    }
+    // canvasResize() {
+    //     const canvas = document.querySelector("canvas");
+    //     this
+    //         .signaturePad
+    //         .set("minWidth", 1);
+    //     console.log(canvas.offsetWidth);
+    //     this
+    //         .signaturePad
+    //         .set("canvasWidth", canvas.offsetWidth);
+    //
+    //     this
+    //         .signaturePad
+    //         .set("canvasHeight", canvas.offsetHeight);
+    // }
 
     drawClear() {
         this
@@ -82,7 +83,17 @@ export class EntryPage {
         this.signatureShowError = true;
     }
 
-    private entryFormSubmitted(): void {
+    async presentToast(toastHeader: string, toastMessage: string) {
+        const toast = await this.toastController.create({
+            header: toastHeader,
+            message: toastMessage,
+            position: "middle",
+            duration: 2000
+        });
+        await toast.present();
+    }
+
+    entryFormSubmitted(): void {
         if (this.signaturePad.isEmpty()) {
             this.signatureShowError = true;
             return;
@@ -91,7 +102,7 @@ export class EntryPage {
 
         if (this.entryForm.valid) {
             console.log(this.entryForm);
-            let entryAccess = new Access();
+            const entryAccess = new Access();
             entryAccess.setId = this.entryForm.controls.id.value;
             entryAccess.setName = this.entryForm.controls.name.value;
             entryAccess.setLastName = this.entryForm.controls.lastName.value;
@@ -100,9 +111,14 @@ export class EntryPage {
             entryAccess.setEntrySignature = this.signaturePad.toDataURL();
             entryAccess.setActualEntryDate();
 
+            // this.accessRegistrationService.registerNewAccess(entryAccess);
             this.accessRegistrationService.registerNewAccess(entryAccess)
                 .subscribe(resp => {
-                    console.log(resp);
+                    if (resp.response_code === 200) {
+                        this.presentToast(SUCCESS, SUCCESSFUL_ENTRY);
+                    } else {
+                        this.presentToast(ERROR, ANOTHER_ERROR);
+                    }
                 });
         }
     }
