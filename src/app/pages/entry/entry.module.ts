@@ -6,9 +6,8 @@ import {Routes, RouterModule} from "@angular/router";
 import {IonicModule} from "@ionic/angular";
 
 import {EntryPage} from "./entry.page";
-import {NavbarComponent} from "../../components/shared/navbar/navbar.component";
-import {HeaderComponent} from "../../components/shared/header/header.component";
 import {SignaturePadModule} from "angular2-signaturepad";
+import {ComponentsModule} from "../../components/shared/components.module";
 
 const routes: Routes = [
     {
@@ -23,9 +22,10 @@ const routes: Routes = [
         FormsModule,
         IonicModule,
         SignaturePadModule,
+        ComponentsModule,
         RouterModule.forChild(routes)
     ],
-    declarations: [EntryPage, NavbarComponent, HeaderComponent]
+    declarations: [EntryPage]
 })
 export class EntryPageModule {
 }
