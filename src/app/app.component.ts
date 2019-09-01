@@ -24,6 +24,7 @@ export class AppComponent {
         private toastController: ToastController
     ) {
         this.initializeApp();
+        this.backButtonEvent();
     }
 
     initializeApp() {
